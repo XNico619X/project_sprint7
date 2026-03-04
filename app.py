@@ -18,3 +18,25 @@ if hist_button:  # al hacer clic en el botón
 
     # mostrar un gráfico Plotly interactivo
     st.plotly_chart(fig, use_container_width=True)
+
+# Nuevo: botón para construir un gráfico de dispersión
+scatter_button = st.button('Construir dispersión')  # crear botón para dispersión
+
+if scatter_button:
+    st.write('Creación de un gráfico de dispersión (odómetro vs precio)')
+
+    # eliminar filas con NaN en las columnas usadas
+    df_scatter = vehicles.dropna(subset=['odometer', 'price'])
+
+    # crear un gráfico de dispersión interactivo
+    fig2 = px.scatter(
+        df_scatter,
+        x='odometer',
+        y='price',
+        color='type',
+        hover_data=['model', 'model_year'],
+        title='Dispersión: odómetro vs precio'
+    )
+
+    # mostrar el gráfico Plotly interactivo
+    st.plotly_chart(fig2, use_container_width=True)
